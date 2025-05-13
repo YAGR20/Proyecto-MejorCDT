@@ -1,48 +1,53 @@
-# 📈 Calculadora de Rentabilidad CDT – MejorCDT (Reto Técnico)
+# Calculadora de Rentabilidad CDT – MejorCDT (Reto Técnico)
 
-Este proyecto fue desarrollado como parte de un reto técnico de la empresa LUABLE . Permite analizar y calcular la rentabilidad de inversiones en CDT (Certificados de Depósito a Término) ofrecidos por 23 bancos en Colombia, con base en un archivo CSV suministrado.
+Este proyecto fue desarrollado como parte de un reto técnico de la empresa **LUABLE MEJOR CDT**. Permite analizar y calcular la rentabilidad de inversiones en CDT (Certificados de Depósito a Término) ofrecidos por 23 bancos en Colombia, con base en un archivo CSV suministrado.
 
-##  Funcionalidades Principales
+## Funcionalidades Principales
 
-- ✅ Leer tasas desde un archivo CSV.
-- ✅ Calcular la tasa vencida a partir de una tasa efectiva anual.
-- ✅ Calcular el ROI (retorno de inversión) para un monto y plazo específico.
-- ✅ Buscar tasas aplicables según monto y plazo.
-- ✅ Ejecutar pruebas unitarias con `pytest`.
-- ✅ Automatizar pruebas con CI (GitHub Actions).
-- ✅ Proyecto organizado con buenas prácticas DevOps.
+- Leer tasas desde un archivo CSV.
+- Calcular la tasa vencida a partir de una tasa efectiva anual.
+- Calcular el ROI (retorno de inversión) para un monto y plazo específico.
+- Buscar tasas aplicables según monto y plazo.
+- Ejecutar pruebas unitarias con `pytest`.
+- Automatizar pruebas con CI (GitHub Actions).
+- Proyecto organizado con buenas prácticas DevOps.
 
-##  Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
-mejorcdt/
+MEJORCDT/
+├── .github/
+│   └── workflows/
+│       └── test.yml
 ├── data/
-│   └── tasas.csv               # Archivo con las tasas (renombrado)
+│   └── tasas.csv
 ├── mejorcdt/
-│   └── main.py                 # Funciones principales
+│   ├── __init__.py
+│   └── main.py
 ├── tests/
-│   └── test_main.py            # Pruebas unitarias
-├── .github/workflows/
-│   └── test.yml                # Workflow de GitHub Actions
-├── requirements.txt            # Dependencias
-├── Makefile                    # Atajos útiles para test y ejecución
-└── README.md                   # Este archivo
+│   └── test_main.py
+├── .gitignore
+├── Makefile
+├── README.md
+├── requirements.txt
+└── venv/
 ```
 
-## 🛠️ Instalación y Uso
+## Instalación y Uso
 
 1. Clona el repositorio:
 
 ```bash
-git clone https://github.com/TU_USUARIO/mejorcdt.git
-cd mejorcdt
+git clone https://github.com/YAGR20/Proyecto-MejorCDT.git
+cd Proyecto-MejorCDT
 ```
 
 2. Crea y activa un entorno virtual:
 
 ```bash
 python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
+# En Windows:
+venv\Scripts\activate
 ```
 
 3. Instala las dependencias:
@@ -51,50 +56,60 @@ source venv/bin/activate  # En Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Ejecuta las pruebas unitarias:
+4. Ejecuta el programa:
 
 ```bash
-make test
+python mejorcdt/main.py
 ```
+
+## Ejecutar las Pruebas
+
+Para verificar que todo el proyecto funcione correctamente, puedes ejecutar las pruebas unitarias utilizando `pytest`.
+
+### En Windows (PowerShell):
+
+```powershell
+$env:PYTHONPATH="."; pytest
+```
+
+Esto asegura que Python reconozca correctamente el paquete `mejorcdt` desde la raíz del proyecto.
+
+### En Linux / macOS (bash):
+
+```bash
+PYTHONPATH=. pytest
+```
+
+> Estas pruebas cubren los casos normales, casos límite y validaciones de errores, asegurando que todas las funciones principales estén funcionando correctamente.
 
 ## Ejemplos de Uso
 
-### Calcular tasa vencida
-
 ```python
-from mejorcdt.main import calcular_tasa_vencida
+from mejorcdt.main import calcular_tasa_vencida, buscar_tasas, calcular_roi
 
-tasa = calcular_tasa_vencida(12.0, 180)
-print(f"Tasa vencida para 180 días: {tasa:.4f}")
+print(calcular_tasa_vencida(12.0, 180))  # ~0.0583
+print(buscar_tasas(1_000_000, 60, "data/tasas.csv"))
+print(calcular_roi(1_000_000, 60, "data/tasas.csv"))
 ```
 
-### Buscar tasas aplicables
+## Interfaz por Consola
 
-```python
-from mejorcdt.main import buscar_tasas
+Puedes ejecutar la aplicación como un script interactivo para ingresar los valores manualmente:
 
-tasas = buscar_tasas(1000000, 60, "data/tasas.csv")
-print(tasas)
+```bash
+python mejorcdt/main.py
 ```
 
-### Calcular ROI
+## Integración Continua (CI)
 
-```python
-from mejorcdt.main import calcular_roi
+Este proyecto usa **GitHub Actions** para ejecutar pruebas automáticamente con cada `push` o `pull request`.
 
-roi = calcular_roi(1000000, 60, "data/tasas.csv")
-print(roi)
-```
-
-##  Integración Continua (CI)
-
-Este proyecto utiliza **GitHub Actions** para ejecutar automáticamente las pruebas al hacer push a cualquier rama. El archivo de configuración se encuentra en:
-
+Archivo CI:
 ```
 .github/workflows/test.yml
 ```
 
-## 🧠 Autor
+## Autor
 
 **Yasmin Alejandra Giraldo Rendón**  
 Estudiante de Ingeniería de Software – Reto Técnico MejorCDT  
