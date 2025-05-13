@@ -29,7 +29,7 @@ def test_roi_monto_fuera_de_rango():
     assert resultado == []
 
 def test_buscar_tasas_plazo_fuera():
-    resultado = buscar_tasas(1_000_000, 999999, "data/tasas.csv")  # plazo exagerado
+    resultado = buscar_tasas(1_000_000, 999999, "data/tasas.csv")  
     assert resultado == []
 
 
