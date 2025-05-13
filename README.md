@@ -1,35 +1,41 @@
-# 📈 Calculadora de Rentabilidad CDT – MejorCDT (Reto Técnico)
+ # Calculadora de Rentabilidad CDT – MejorCDT (Reto Técnico)
 
-Este proyecto fue desarrollado como parte de un reto técnico de la empresa LUABLE . Permite analizar y calcular la rentabilidad de inversiones en CDT (Certificados de Depósito a Término) ofrecidos por 23 bancos en Colombia, con base en un archivo CSV suministrado.
+Este proyecto fue desarrollado como parte de un reto técnico de la empresa **LUABLE MEJOR CDT**. Permite analizar y calcular la rentabilidad de inversiones en CDT (Certificados de Depósito a Término) ofrecidos por 23 bancos en Colombia, con base en un archivo CSV suministrado.
 
-##  Funcionalidades Principales
+## Funcionalidades Principales
 
-- ✅ Leer tasas desde un archivo CSV.
-- ✅ Calcular la tasa vencida a partir de una tasa efectiva anual.
-- ✅ Calcular el ROI (retorno de inversión) para un monto y plazo específico.
-- ✅ Buscar tasas aplicables según monto y plazo.
-- ✅ Ejecutar pruebas unitarias con `pytest`.
-- ✅ Automatizar pruebas con CI (GitHub Actions).
-- ✅ Proyecto organizado con buenas prácticas DevOps.
+- Leer tasas desde un archivo CSV.
+- Calcular la tasa vencida a partir de una tasa efectiva anual.
+- Calcular el ROI (retorno de inversión) para un monto y plazo específico.
+- Buscar tasas aplicables según monto y plazo.
+- Ejecutar pruebas unitarias con `pytest`.
+- Automatizar pruebas con CI (GitHub Actions).
+- Proyecto organizado con buenas prácticas DevOps.
 
-##  Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
-mejorcdt/
+MEJORCDT/
+├── .github/
+│ └── workflows/
+│ └── test.yml
+├── .pytest_cache/
 ├── data/
-│   └── tasas.csv               # Archivo con las tasas (renombrado)
+│ └── tasas.csv
 ├── mejorcdt/
-│   └── main.py                 # Funciones principales
+│ ├── pycache/
+│ └── main.py
 ├── tests/
-│   └── test_main.py            # Pruebas unitarias
-├── .github/workflows/
-│   └── test.yml                # Workflow de GitHub Actions
-├── requirements.txt            # Dependencias
-├── Makefile                    # Atajos útiles para test y ejecución
-└── README.md                   # Este archivo
+│ ├── pycache/
+│ └── test_main.py
+├── venv/
+├── .gitignore
+├── Makefile
+├── README.md
+└── requirements.txt
 ```
 
-## 🛠️ Instalación y Uso
+## Instalación y Uso
 
 1. Clona el repositorio:
 
@@ -42,7 +48,8 @@ cd mejorcdt
 
 ```bash
 python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
+# En Windows:
+venv\Scripts\activate
 ```
 
 3. Instala las dependencias:
@@ -54,18 +61,18 @@ pip install -r requirements.txt
 4. Ejecuta las pruebas unitarias:
 
 ```bash
-make test
+pytest
 ```
 
-## Ejemplos de Uso
+## Ejemplos de Uso con Resultados Esperados
 
 ### Calcular tasa vencida
 
 ```python
 from mejorcdt.main import calcular_tasa_vencida
 
-tasa = calcular_tasa_vencida(12.0, 180)
-print(f"Tasa vencida para 180 días: {tasa:.4f}")
+resultado = calcular_tasa_vencida(12.0, 180)
+print(resultado)  # Esperado: ~0.0583
 ```
 
 ### Buscar tasas aplicables
@@ -73,8 +80,8 @@ print(f"Tasa vencida para 180 días: {tasa:.4f}")
 ```python
 from mejorcdt.main import buscar_tasas
 
-tasas = buscar_tasas(1000000, 60, "data/tasas.csv")
-print(tasas)
+tasas = buscar_tasas(1_000_000, 60, "data/tasas.csv")
+print(tasas)  # Lista con bancos y tasas
 ```
 
 ### Calcular ROI
@@ -82,24 +89,33 @@ print(tasas)
 ```python
 from mejorcdt.main import calcular_roi
 
-roi = calcular_roi(1000000, 60, "data/tasas.csv")
-print(roi)
+roi = calcular_roi(1_000_000, 60, "data/tasas.csv")
+print(roi)  # Lista con banco, tasa y ganancia esperada
 ```
 
-##  Integración Continua (CI)
+## 🖥️ Interfaz por consola
 
-Este proyecto utiliza **GitHub Actions** para ejecutar automáticamente las pruebas al hacer push a cualquier rama. El archivo de configuración se encuentra en:
+Ejecuta el archivo principal para ingresar datos manualmente:
 
+```bash
+python mejorcdt/main.py
+```
+
+## Integración Continua (CI)
+
+Este proyecto usa **GitHub Actions** para ejecutar pruebas automáticamente con cada `push`.
+
+Archivo CI:
 ```
 .github/workflows/test.yml
 ```
 
-## 🧠 Autor
+## Autor
 
 **Yasmin Alejandra Giraldo Rendón**  
 Estudiante de Ingeniería de Software – Reto Técnico MejorCDT  
 Especial interés en DevOps y desarrollo backend
 
-## 📝 Licencia
+## Licencia
 
 Este proyecto se ha desarrollado con fines evaluativos y educativos.
